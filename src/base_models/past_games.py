@@ -3,7 +3,6 @@ from .past_single_game import PastSingleGameModel
 
 
 class PastGamesModel:
-    # List of past games for given team (team is provided in SingleGameDetails TODO: maybe providing here) 
     def __init__(self, past_games: List[Dict], team: str = None, team_side: str = None) -> None:
         """
         past_games - list of dictionaries containing game details

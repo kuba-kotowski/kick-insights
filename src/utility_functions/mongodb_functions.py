@@ -42,18 +42,26 @@ def get_past_n_games(collection, doc: Dict, n_games, type):
     if type=="home":
         return list(collection.find({
             "datetime": {"$lt": datetime}, 
+            "events": {"$ne": []},
+            "stats": {"$ne": []},
+            "odds.odds_btts_yes": {"$exists": True},
             "$or": [{"home": home_team}, {"away": home_team}], 
             "league": {"$nin": ["Club Friendly"]}
         }).sort("datetime", -1).limit(n_games))
     elif type=="away":
         return list(collection.find({
             "datetime": {"$lt": datetime}, 
+            "events": {"$ne": []},
+            "stats": {"$ne": []},
+            "odds.odds_btts_yes": {"$exists": True},
             "$or": [{"home": away_team}, {"away": away_team}], 
             "league": {"$nin": ["Club Friendly"]}
         }).sort("datetime", -1).limit(n_games))
     elif type=="h2h":
         return list(collection.find({
             "datetime": {"$lt": datetime}, 
+            "events": {"$ne": []},
+            "stats": {"$ne": []},
             "$or": [
                 {"home": home_team, "away": away_team},
                 {"home": away_team, "away": home_team}
